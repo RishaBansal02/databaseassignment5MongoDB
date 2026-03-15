@@ -1,0 +1,21 @@
+To load the IEEE VIS 2020 tweets dataset into MongoDB, the following steps were performed.
+
+First, the dataset file ieeevis2020Tweets.dump.bz2 was downloaded from the provided course link. Since the file was compressed, it was extracted to obtain the file ieeevis2020Tweets.dump. This was done on macOS by either double-clicking the .bz2 file or using the terminal command:
+
+bunzip2 ieeevis2020Tweets.dump.bz2
+
+Next, MongoDB was started locally on the machine using Homebrew:
+brew services start mongodb-community
+
+Once the MongoDB server was running, the dataset was imported into MongoDB using the mongoimport tool. The following command was executed in the terminal from the directory containing the .dump file:
+mongoimport -h localhost:27017 -d ieeevisTweets -c tweet --file ieeevis2020Tweets.dump
+
+This command connects to the MongoDB server running on localhost at port 27017, creates the database named ieeevisTweets, and imports the tweet data into the tweet collection.
+
+Finally, the import was verified by opening the MongoDB shell and counting the number of documents in the collection:
+
+mongosh
+
+use ieeevisTweets
+db.tweet.countDocuments()
+The returned count confirms that the tweet records were successfully loaded into the database and are ready to be queried using Node.js scripts.
